@@ -69,6 +69,15 @@
 extern int errno;
 #endif /* !errno */
 
+#if defined (__ANDROID__)
+#include <stdlib.h>
+
+int mblen(const char *s, size_t n)
+{
+	return mbtowc(0, s, n);
+}
+#endif
+
 /* The size that strings change by. */
 #define DEFAULT_INITIAL_ARRAY_SIZE 112
 #define DEFAULT_ARRAY_SIZE 128

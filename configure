@@ -3404,13 +3404,6 @@ fi
 
 
 
-if test -z "$CFLAGS"; then
-	AUTO_CFLAGS="-g ${GCC+-O2} ${GCC+-Wno-parentheses}"
-	AUTO_LDFLAGS="-g ${GCC+-O2}"
-else
-	AUTO_CFLAGS= AUTO_LDFLAGS=
-fi
-
 echo ""
 echo "Beginning configuration for bash-$BASHVERS-$RELSTATUS for ${host_cpu}-${host_vendor}-${host_os}"
 echo ""
@@ -4943,6 +4936,13 @@ fi
 
 
 
+
+if test -z "$CFLAGS"; then
+	AUTO_CFLAGS="-g ${GCC+-O2}"
+	AUTO_LDFLAGS="-g ${GCC+-O2}"
+else
+	AUTO_CFLAGS= AUTO_LDFLAGS=
+fi
 
 CFLAGS=${CFLAGS-"$AUTO_CFLAGS"}
 # LDFLAGS=${LDFLAGS="$AUTO_LDFLAGS"}	# XXX

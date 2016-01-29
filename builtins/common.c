@@ -240,7 +240,7 @@ void
 sh_invalidnum (s)
      char *s;
 {
-  char *msg;
+ const char *msg;
 
   if (*s == '0' && isdigit ((unsigned char)s[1]))
     msg = _("invalid octal number");

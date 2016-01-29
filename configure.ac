@@ -408,14 +408,6 @@ AC_SUBST(HELPINSTALL)
 AC_SUBST(HELPFILES_TARGET)
 AC_SUBST(HELPSTRINGS)
 
-dnl We want these before the checks, so the checks can modify their values.
-if test -z "$CFLAGS"; then
-	AUTO_CFLAGS="-g ${GCC+-O2} ${GCC+-Wno-parentheses}"
-	AUTO_LDFLAGS="-g ${GCC+-O2}"
-else
-	AUTO_CFLAGS= AUTO_LDFLAGS=
-fi
-
 echo ""
 echo "Beginning configuration for bash-$BASHVERS-$RELSTATUS for ${host_cpu}-${host_vendor}-${host_os}"
 echo ""
@@ -472,6 +464,14 @@ AC_SUBST(SIGNAMES_H)
 AC_SUBST(SIGNAMES_O)
 
 dnl END changes for cross-building
+
+dnl We want these before the checks, so the checks can modify their values.
+if test -z "$CFLAGS"; then
+	AUTO_CFLAGS="-g ${GCC+-O2} ${GCC+-Wno-parentheses}"
+	AUTO_LDFLAGS="-g ${GCC+-O2}"
+else
+	AUTO_CFLAGS= AUTO_LDFLAGS=
+fi
 
 dnl default values
 CFLAGS=${CFLAGS-"$AUTO_CFLAGS"}

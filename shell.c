@@ -84,6 +84,12 @@
 #  include <opennt/opennt.h>
 #endif
 
+#include <sys/param.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+
+
 #if !defined (HAVE_GETPW_DECLS)
 extern struct passwd *getpwuid ();
 #endif /* !HAVE_GETPW_DECLS */
@@ -1736,17 +1742,19 @@ get_current_user_info ()
 	  current_user.user_name = savestring (entry->pw_name);
 	  current_user.shell = (entry->pw_shell && entry->pw_shell[0])
 				? savestring (entry->pw_shell)
-				: savestring ("/bin/sh");
+				: savestring ("/system/bin/sh");
 	  current_user.home_dir = savestring (entry->pw_dir);
 	}
       else
 	{
 	  current_user.user_name = _("I have no name!");
 	  current_user.user_name = savestring (current_user.user_name);
-	  current_user.shell = savestring ("/bin/sh");
+	  current_user.shell = savestring ("/system/bin/sh");
 	  current_user.home_dir = savestring ("/");
 	}
+#if defined (HAVE_GETPWENT)
       endpwent ();
+#endif
     }
 }
 
@@ -1757,6 +1765,8 @@ shell_initialize ()
 {
   char hostname[256];
   int should_be_restricted;
+  char sdcardhome[MAXPATHLEN];
+  struct passwd *pwd;
 
   /* Line buffer output for stderr and stdout. */
   if (shell_initialized == 0)
@@ -1807,6 +1817,11 @@ shell_initialize ()
 #else
   initialize_shell_variables (shell_environment, privileged_mode||running_setuid);
 #endif
+
+  pwd = getpwuid(getuid());
+  snprintf(sdcardhome, MAXPATHLEN, "/sdcard");
+  setenv("EXTERNAL_STORAGE", sdcardhome, 1);
+
 
   /* Initialize the data structures for storing and running jobs. */
   initialize_job_control (jobs_m_flag);

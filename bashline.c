@@ -66,7 +66,9 @@
 #include <readline/history.h>
 
 #include <glob/glob.h>
-
+#define setgrent() 0
+#define getgrent() 0
+#define endgrent() 0
 #if defined (ALIAS)
 #  include "alias.h"
 #endif
@@ -2455,7 +2457,7 @@ bash_groupname_completion_function (text, state)
      const char *text;
      int state;
 {
-#if defined (__WIN32__) || defined (__OPENNT) || !defined (HAVE_GRP_H)
+#if defined (__WIN32__) || defined (__OPENNT) || !defined (HAVE_GRP_H) || defined (__ANDROID__)
   return ((char *)NULL);
 #else
   static char *gname = (char *)NULL;
