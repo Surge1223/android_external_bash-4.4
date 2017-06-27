@@ -59,14 +59,14 @@
 /* The default value of the PATH variable. */
 #ifndef DEFAULT_PATH_VALUE
 #define DEFAULT_PATH_VALUE \
-  "/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin:/sbin:/vendor/lib:/system/lib:/system/lib64:/data/local/tmp:/data/toolchain/lib:/data/toolchain/bin:."
+  "/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin:/sbin:/vendor/lib:/system/lib:/system/lib64:/data/local/tmp:/data/toolchain/bin:."
 #endif
 
 /* The value for PATH when invoking `command -p'.  This is only used when
    the Posix.2 confstr () function, or CS_PATH define are not present. */
 #ifndef STANDARD_UTILS_PATH
 #define STANDARD_UTILS_PATH \
-  "/system/bin:/system/xbin:/sbin:/data/local/tmp:/data/toolchain/bin"
+  "/sbin:/system/bin:/system/xbin:/sbin:/data/local/tmp:/data/toolchain/bin"
 #endif
 
 /* Default primary and secondary prompt strings. */
@@ -83,15 +83,13 @@
 #define DEFAULT_BASHRC "~/.bashrc"
 
 /* System-wide .bashrc file for interactive shells. */
-/* #define SYS_BASHRC "/etc/bash.bashrc" */
+/* #define SYS_BASHRC "/sdcard/bashrc" */
 
 /* System-wide .bash_logout for login shells. */
-/* #define SYS_BASH_LOGOUT "/etc/bash.bash_logout" */
-#define SYS_BASHRC "/data/toolchain/etc/bash.bashrc"
+/* #define SYS_BASH_LOGOUT "/sdcard/.bash_logout" */
  
  /* System-wide .bash_logout for login shells. */
-/* #define SYS_BASH_LOGOUT "/etc/bash.bash_logout" */
-#define SYS_BASH_LOGOUT "/data/toolchain/etc/bash.bash_logout"
+#define SYS_BASH_LOGOUT "/data/local/tmp/.bash_logout"
 /* Define this to make non-interactive shells begun with argv[0][0] == '-'
    run the startup files when not in posix mode. */
 /* #define NON_INTERACTIVE_LOGIN_SHELLS */
